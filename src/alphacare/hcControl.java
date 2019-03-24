@@ -13,7 +13,7 @@ public class hcControl {
     public hcControl() {
 
         dataListModel = new hcModel();
-        healthCareUI = new hcView(this);
+        healthCareUI = new hcView(this, dataListModel);
         healthCareUI.setVisible(true);
  
     }

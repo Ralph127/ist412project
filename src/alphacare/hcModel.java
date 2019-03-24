@@ -51,5 +51,55 @@ public class hcModel {
         }
 
     }
+    
+    public String MockRecord(int i) {
+        
+        String[] recordInfo = new String[21];
+        
+        // First name
+        recordInfo[0] = "Mike";
+        // Middle initial
+        recordInfo[1] = "J";
+        // Patient's last name
+        recordInfo[2] = "Nelson";
+        // Patient's date of birth
+        recordInfo[3] = "04/08/1998";
+        // Patient's height
+        recordInfo[4] = "62 inches";
+        // Patient's weight
+        recordInfo[5] = "184 pounds";
+        // Patient's address
+        recordInfo[6] = "351 State Drive";
+        // Patient's city
+        recordInfo[7] = "Collegeville";
+        // Patient's state
+        recordInfo[8] = "PA";
+        // Patient's zip
+        recordInfo[9] = "15820";
+        // Patient's phone number
+        recordInfo[10] = "(814) 237-8712";
+        // Patient's gender
+        recordInfo[11] = "Male";
+        // Patient's ethnicity
+        recordInfo[12] = "White";
+        // Patient's language
+        recordInfo[13] = "English";
+        // Patient's marital status
+        recordInfo[14] = "Single";
+        // Patient's culture
+        recordInfo[15] = "Northeastern American";
+        // Patient's allergies
+        recordInfo[16] = "None";
+        // Patient's current medications
+        recordInfo[17] = "None";
+        // Patient's drug use
+        recordInfo[18] = "Drinks occasionally";
+        // Patient conditions
+        recordInfo[19] = "None";
+        // Written Report
+        recordInfo[20] = "The patient came in complaining about an earache, muffled hearing, and nausea and it was determined during my analysis that the patient has ear drainage.";
+        
+        return recordInfo[i];
+    }
 
 }
