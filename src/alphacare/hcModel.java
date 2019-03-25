@@ -54,7 +54,7 @@ public class hcModel {
     
     public String MockRecord(int i) {
         
-        String[] recordInfo = new String[21];
+        String[] recordInfo = new String[23];
         
         // First name
         recordInfo[0] = "Mike";
@@ -98,6 +98,10 @@ public class hcModel {
         recordInfo[19] = "None";
         // Written Report
         recordInfo[20] = "The patient came in complaining about an earache, muffled hearing, and nausea and it was determined during my analysis that the patient has ear drainage.";
+        // Symptoms
+        recordInfo[21] = "Earache, muffled hearing, and nausea.";
+        // Date of report
+        recordInfo[22] = "03/20/2019";
         
         return recordInfo[i];
     }

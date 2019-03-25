@@ -1,20 +1,15 @@
 package alphacare;
-// website help for syling url: https://www.codemiles.com/java-examples/fonts-in-java-t2831.html
-/**
- *
- * @author Rodrigo
- */
 import java.awt.BorderLayout;
-
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JComboBox;
-
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
@@ -41,8 +36,13 @@ public class hcView extends JFrame {
         setSize(500, 350);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        
+        JTextField usernameField = new JTextField("", JTextField.CENTER);
+        JTextField passwordField = new JTextField("", JTextField.CENTER);
+        final String correctUsername = "mjnelson";
+        final String correctPassword = "mockPassword";
 
-        objectPanel = new JPanel(new GridLayout(2, 1));
+        objectPanel = new JPanel(new GridLayout(3, 2));
 
         ImageIcon img = new ImageIcon("healthcare.png");
 
@@ -50,45 +50,52 @@ public class hcView extends JFrame {
 
         objectPanel.add(new JLabel(img, JLabel.CENTER));
         
-        objectPanel.add(new JTextField("Username", JTextField.CENTER));
-        objectPanel.add(new JTextField("Password", JTextField.CENTER));
+        objectPanel.add(usernameField);
+        objectPanel.add(passwordField);
+        
+        objectPanel.add(new JLabel("Username", JLabel.CENTER));
+        objectPanel.add(new JLabel("Password", JLabel.CENTER));
 
         buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
         JButton welcomeB = new JButton("Login");
 
-        welcomeB.addActionListener(event -> patientOptions());
+        //welcomeB.addActionListener(event -> patientOptions());
+        
+        JButton showDialogButton = new JButton("Text Button");
+        welcomeB.addActionListener(new ActionListener() {
+          public void actionPerformed(ActionEvent e)
+          {
+            if(usernameField.getText().equals(correctUsername) && passwordField.getText().equals(correctPassword)){
+                patientOptions();
+            }else{
+                JOptionPane.showMessageDialog(null, "Incorrect username/password combination");
+            }
+          }
+        });
 
         buttonPanel.add(welcomeB);
 
         setContentPane(new JPanel(new BorderLayout()));
-        getContentPane().add(objectPanel, BorderLayout.BEFORE_FIRST_LINE);
+        getContentPane().add(objectPanel, BorderLayout.NORTH);
         getContentPane().add(buttonPanel, BorderLayout.SOUTH);
 
     }
 
     private void patientOptions() {
-        setTitle("Selected Records");
+        setTitle("Patient Portal");
         setSize(320, 300);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setVisible(true);
 
-        String[] patientChoices = {"Today's Patients", "All Patients"};
-        String[] genders = {"Male", "Female"};
+        String displayTitle = "Welcome " + hcMod.MockRecord(0) + "!";
 
-        final JComboBox<String> pcChoices = new JComboBox<>(patientChoices);  // url: https://stackoverflow.com/questions/22506331/simple-dropdown-menu-in-java
-        final JComboBox<String> gChoices = new JComboBox<>(genders);
-        pcChoices.setVisible(true);
-        gChoices.setVisible(true);
-
-        objectPanel = new JPanel(new GridLayout(2, 2));
-        objectPanel.add(new JLabel("Choose Patients", JLabel.CENTER));
-        objectPanel.add(pcChoices);
-        objectPanel.add(new JLabel("Choose gender", JLabel.CENTER));
-        objectPanel.add(gChoices);
+        objectPanel = new JPanel(new GridLayout(2, 1));
+        objectPanel.add(new JLabel(displayTitle, JLabel.CENTER));
+        objectPanel.add(new JLabel("You have no messages to display.", JLabel.CENTER));
 
         buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
-        JButton patientInfo = new JButton("Generate Records");
+        JButton patientInfo = new JButton("Display Latest Record");
         patientInfo.addActionListener(event -> medicalForm());
         buttonPanel.add(patientInfo);
 
@@ -99,40 +106,6 @@ public class hcView extends JFrame {
         setContentPane(new JPanel(new BorderLayout()));
         getContentPane().add(objectPanel, BorderLayout.CENTER);
         getContentPane().add(buttonPanel, BorderLayout.SOUTH);
-    }
-
-    private void patientRecords(String[] patientRecords) {
-        setTitle("Patient Records");
-        setSize(750, 300);
-        setLocationRelativeTo(null);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setVisible(true);
-
-        objectPanel = new JPanel(new GridLayout(10, 0));
-        objectPanel.add(new JLabel("Records:", JLabel.CENTER)).setFont(new Font("Verdana", 20, 20));
-        objectPanel.add(new JLabel(""));
-
-        int x = 0;
-        for (String t : patientRecords) {
-            objectPanel.add(new JLabel("        • " + patientRecords[x])).setFont(new Font("Verdana", 20, 15));
-            objectPanel.add(new JLabel(""));
-            x++;
-        }
-
-        buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
-        JButton returnToOptions = new JButton("Back");
-        returnToOptions.addActionListener(event -> patientOptions());
-        buttonPanel.add(returnToOptions);
-
-        setContentPane(new JPanel(new BorderLayout()));
-        getContentPane().add(objectPanel, BorderLayout.CENTER);
-        getContentPane().add(buttonPanel, BorderLayout.SOUTH);
-    }
-
-    private void getRecords(JComboBox<String> patientGender, JComboBox<String> workouts) {
-
-        patientRecords(hcCntrl.dataListModel.ListRecords(patientGender.getSelectedIndex(), workouts.getSelectedIndex()));
-
     }
     
     private void medicalForm(){
@@ -179,6 +152,10 @@ public class hcView extends JFrame {
         record.jTextArea4.setText(hcMod.MockRecord(19));
         // Written Report
         record.jTextArea6.setText(hcMod.MockRecord(20));
+        // Symptoms
+        record.jTextArea5.setText(hcMod.MockRecord(21));
+        // Date of report
+        record.jTextField24.setText(hcMod.MockRecord(22));
         
         record.setVisible(true);
     }
