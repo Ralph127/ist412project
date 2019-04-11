@@ -5,18 +5,22 @@ import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
 
 public class hcView extends JFrame {
 
     private JPanel objectPanel;
+    private JPanel recordPanel;
     private JPanel buttonPanel;
 
     private final hcControl hcCntrl;
@@ -38,7 +42,7 @@ public class hcView extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         
         JTextField usernameField = new JTextField("", JTextField.CENTER);
-        JTextField passwordField = new JTextField("", JTextField.CENTER);
+        JPasswordField passwordField = new JPasswordField("", JTextField.CENTER);
         final String correctUsername = "mjnelson";
         final String correctPassword = "mockPassword";
 
@@ -66,6 +70,7 @@ public class hcView extends JFrame {
           public void actionPerformed(ActionEvent e)
           {
             if(usernameField.getText().equals(correctUsername) && passwordField.getText().equals(correctPassword)){
+                
                 patientOptions();
             }else{
                 JOptionPane.showMessageDialog(null, "Incorrect username/password combination");
@@ -82,21 +87,46 @@ public class hcView extends JFrame {
     }
 
     private void patientOptions() {
+        
         setTitle("Patient Portal");
-        setSize(320, 300);
+        setSize(800, 600);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setVisible(true);
 
-        String displayTitle = "Welcome " + hcMod.MockRecord(0) + "!";
+        String displayTitle = "Welcome " + (String)Array.get(hcMod.getMockRecord(0), 0) + "!";
 
         objectPanel = new JPanel(new GridLayout(2, 1));
         objectPanel.add(new JLabel(displayTitle, JLabel.CENTER));
         objectPanel.add(new JLabel("You have no messages to display.", JLabel.CENTER));
+        
+        ActionListener listener = new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (e.getSource() instanceof JButton) {
+                    String text = (((JButton) e.getSource()).getText()).substring(20);
+                    for (int i = 0; i < hcMod.patientRecords.size(); i++){
+                        if (text.equals((String)Array.get(hcMod.getMockRecord(i), 22))){
+                            medicalForm(i);
+                        }
+                    }
+                }
+            }
+        };
+        
+        recordPanel = new JPanel(new GridLayout(hcMod.patientRecords.size() + 1, 1));
+        JButton[] buttonList = new JButton[hcMod.patientRecords.size()];
+        for (int i = 0; i < hcMod.patientRecords.size(); i++){
+            //JButton recordButton = new JButton("Medical record from " + (String)Array.get(hcMod.MockRecord(i), 3));
+            //recordButton.addActionListener(listener);
+            buttonList[i] = new JButton("Medical record from " + (String)Array.get(hcMod.getMockRecord(i), 22));
+            buttonList[i].addActionListener(listener);
+            recordPanel.add(buttonList[i]);
+        }
 
         buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
         JButton patientInfo = new JButton("Display Latest Record");
-        patientInfo.addActionListener(event -> medicalForm());
+        //patientInfo.addActionListener(event -> medicalForm());
         buttonPanel.add(patientInfo);
 
         JButton backButton = new JButton("Log Out");
@@ -104,58 +134,61 @@ public class hcView extends JFrame {
         buttonPanel.add(backButton);
 
         setContentPane(new JPanel(new BorderLayout()));
-        getContentPane().add(objectPanel, BorderLayout.CENTER);
+        getContentPane().add(objectPanel, BorderLayout.NORTH);
+        getContentPane().add(recordPanel, BorderLayout.CENTER);
         getContentPane().add(buttonPanel, BorderLayout.SOUTH);
     }
     
-    private void medicalForm(){
+    private void medicalForm(int i){
+        
+        String[] recordHolder = hcMod.getMockRecord(i);
         
         // First name
-        record.jTextField1.setText(hcMod.MockRecord(0));
+        record.jTextField1.setText(recordHolder[0]);
         // Middle initial
-        record.jTextField2.setText(hcMod.MockRecord(1));
+        record.jTextField2.setText(recordHolder[1]);
         // Patient's last name
-        record.jTextField3.setText(hcMod.MockRecord(2));
+        record.jTextField3.setText(recordHolder[2]);
         // Patient's date of birth
-        record.jTextField5.setText(hcMod.MockRecord(3));
+        record.jTextField5.setText(recordHolder[3]);
         // Patient's height
-        record.jTextField10.setText(hcMod.MockRecord(4));
+        record.jTextField10.setText(recordHolder[4]);
         // Patient's weight
-        record.jTextField13.setText(hcMod.MockRecord(5));
+        record.jTextField13.setText(recordHolder[5]);
         // Patient's address
-        record.jTextField6.setText(hcMod.MockRecord(6));
+        record.jTextField6.setText(recordHolder[6]);
         // Patient's city
-        record.jTextField7.setText(hcMod.MockRecord(7));
+        record.jTextField7.setText(recordHolder[7]);
         // Patient's state
-        record.jTextField8.setText(hcMod.MockRecord(8));
+        record.jTextField8.setText(recordHolder[8]);
         // Patient's zip
-        record.jTextField9.setText(hcMod.MockRecord(9));
+        record.jTextField9.setText(recordHolder[9]);
         // Patient's phone number
-        record.jTextField26.setText(hcMod.MockRecord(10));
+        record.jTextField26.setText(recordHolder[10]);
         // Patient's gender
-        record.jTextField27.setText(hcMod.MockRecord(11));
+        record.jTextField27.setText(recordHolder[11]);
         // Patient's ethnicity
-        record.jTextField25.setText(hcMod.MockRecord(12));
+        record.jTextField25.setText(recordHolder[12]);
         // Patient's language
-        record.jTextField28.setText(hcMod.MockRecord(13));
+        record.jTextField28.setText(recordHolder[13]);
         // Patient's marital status
-        record.jTextField30.setText(hcMod.MockRecord(14));
+        record.jTextField30.setText(recordHolder[14]);
         // Patient's culture
-        record.jTextField29.setText(hcMod.MockRecord(15));
+        record.jTextField29.setText(recordHolder[15]);
         // Patient's allergies
-        record.jTextArea1.setText(hcMod.MockRecord(16));
+        record.jTextArea1.setText(recordHolder[16]);
         // Patient's current medications
-        record.jTextArea2.setText(hcMod.MockRecord(17));
+        record.jTextArea2.setText(recordHolder[17]);
         // Patient's drug use
-        record.jTextArea3.setText(hcMod.MockRecord(18));
+        record.jTextArea3.setText(recordHolder[18]);
         // Patient conditions
-        record.jTextArea4.setText(hcMod.MockRecord(19));
+        record.jTextArea4.setText(recordHolder[19]);
         // Written Report
-        record.jTextArea6.setText(hcMod.MockRecord(20));
+        record.jTextArea6.setText(recordHolder[20]);
         // Symptoms
-        record.jTextArea5.setText(hcMod.MockRecord(21));
+        record.jTextArea5.setText(recordHolder[21]);
         // Date of report
-        record.jTextField24.setText(hcMod.MockRecord(22));
+        record.jTextField24.setText(recordHolder[22]);
         
         record.setVisible(true);
     }
