@@ -189,7 +189,7 @@ public class hcView extends JFrame {
         record.jTextArea5.setText(recordHolder[21]);
         // Date of report
         record.jTextField24.setText(recordHolder[22]);
-        
+        record.inputFieldsForExport(recordHolder);
         record.setVisible(true);
     }
 
