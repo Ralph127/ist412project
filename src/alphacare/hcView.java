@@ -144,51 +144,51 @@ public class hcView extends JFrame {
         String[] recordHolder = hcMod.getMockRecord(i);
         
         // First name
-        record.jTextField1.setText(recordHolder[0]);
+        record.name.setText(recordHolder[0]);
         // Middle initial
-        record.jTextField2.setText(recordHolder[1]);
+        record.middleName.setText(recordHolder[1]);
         // Patient's last name
-        record.jTextField3.setText(recordHolder[2]);
+        record.lastName.setText(recordHolder[2]);
         // Patient's date of birth
-        record.jTextField5.setText(recordHolder[3]);
+        record.dateOfBirth.setText(recordHolder[3]);
         // Patient's height
-        record.jTextField10.setText(recordHolder[4]);
+        record.height.setText(recordHolder[4]);
         // Patient's weight
-        record.jTextField13.setText(recordHolder[5]);
+        record.weight.setText(recordHolder[5]);
         // Patient's address
-        record.jTextField6.setText(recordHolder[6]);
+        record.address.setText(recordHolder[6]);
         // Patient's city
-        record.jTextField7.setText(recordHolder[7]);
+        record.city.setText(recordHolder[7]);
         // Patient's state
-        record.jTextField8.setText(recordHolder[8]);
+        record.state.setText(recordHolder[8]);
         // Patient's zip
-        record.jTextField9.setText(recordHolder[9]);
+        record.zipCode.setText(recordHolder[9]);
         // Patient's phone number
-        record.jTextField26.setText(recordHolder[10]);
+        record.phoneNumber.setText(recordHolder[10]);
         // Patient's gender
-        record.jTextField27.setText(recordHolder[11]);
+        record.gender.setText(recordHolder[11]);
         // Patient's ethnicity
-        record.jTextField25.setText(recordHolder[12]);
+        record.ethnicity.setText(recordHolder[12]);
         // Patient's language
-        record.jTextField28.setText(recordHolder[13]);
+        record.languagePreference.setText(recordHolder[13]);
         // Patient's marital status
-        record.jTextField30.setText(recordHolder[14]);
+        record.martialStatus.setText(recordHolder[14]);
         // Patient's culture
-        record.jTextField29.setText(recordHolder[15]);
+        record.culturalPreference.setText(recordHolder[15]);
         // Patient's allergies
-        record.jTextArea1.setText(recordHolder[16]);
+        record.allergies.setText(recordHolder[16]);
         // Patient's current medications
-        record.jTextArea2.setText(recordHolder[17]);
+        record.medications.setText(recordHolder[17]);
         // Patient's drug use
-        record.jTextArea3.setText(recordHolder[18]);
+        record.drugs.setText(recordHolder[18]);
         // Patient conditions
-        record.jTextArea4.setText(recordHolder[19]);
+        record.currentConditions.setText(recordHolder[19]);
         // Written Report
-        record.jTextArea6.setText(recordHolder[20]);
+        record.todaysReport.setText(recordHolder[20]);
         // Symptoms
-        record.jTextArea5.setText(recordHolder[21]);
+        record.currentSymptoms.setText(recordHolder[21]);
         // Date of report
-        record.jTextField24.setText(recordHolder[22]);
+        record.todaysDate.setText(recordHolder[22]);
         record.inputFieldsForExport(recordHolder);
         record.setVisible(true);
     }
