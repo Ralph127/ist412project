@@ -207,11 +207,22 @@ public class hcView extends JFrame {
         record.setVisible(true);
     }
     
+    //Provides an overview for all data for the patient
     private void analysisForm(){
         
        ArrayList<String[]> records = hcMod.getmockRecordList();
+       //The first record is for getting information that generally does not change
+       String[] firstRecord = records.get(0);
        
        analysis.title.setText("Analysis for " + records.get(0)[0]);
+       
+       analysis.jTextArea1.append("Name " + firstRecord[0] + ", " + firstRecord[1] + ", " + firstRecord[2] + ", " + "\n");
+       analysis.jTextArea1.append("Gender " + firstRecord[11] + "\n");
+       analysis.jTextArea1.append("Ethicity " + firstRecord[12] + "\n");
+       analysis.jTextArea1.append("Date of Birth " + firstRecord[3] + "\n");
+       analysis.jTextArea1.append("Address " + firstRecord[6] + ", " + firstRecord[7] + ", " + firstRecord[8] + "\n");
+       analysis.jTextArea1.append("Phone Number " + firstRecord[10] + "\n");
+       analysis.jTextArea1.append("\n");
        
         formatAnalysis(4, "height", records);
         formatAnalysis(5, "weight", records);
