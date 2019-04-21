@@ -26,6 +26,7 @@ public class hcView extends JFrame {
     private final hcControl hcCntrl;
     private final hcModel hcMod;
     private final MedicalRecordUI record = new MedicalRecordUI();
+    private final AnalysisUI analysis = new AnalysisUI();
 
     public hcView(hcControl hcCntl, hcModel hcMod) {
         this.hcCntrl = hcCntl;
@@ -114,6 +115,15 @@ public class hcView extends JFrame {
             }
         };
         
+        ActionListener analyzeListener = new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent ae) {
+                if (ae.getSource() instanceof JButton) {
+                   analysisForm();
+                }
+            }
+        };
+        
         recordPanel = new JPanel(new GridLayout(hcMod.patientRecords.size() + 1, 1));
         JButton[] buttonList = new JButton[hcMod.patientRecords.size()];
         for (int i = 0; i < hcMod.patientRecords.size(); i++){
@@ -128,6 +138,10 @@ public class hcView extends JFrame {
         JButton patientInfo = new JButton("Display Latest Record");
         //patientInfo.addActionListener(event -> medicalForm());
         buttonPanel.add(patientInfo);
+        
+        JButton analyzeButton = new JButton("Analyze Data");
+        analyzeButton.addActionListener(analyzeListener);
+        buttonPanel.add(analyzeButton);
 
         JButton backButton = new JButton("Log Out");
         backButton.addActionListener(event -> alphaCareStarter());
@@ -191,6 +205,30 @@ public class hcView extends JFrame {
         record.todaysDate.setText(recordHolder[22]);
         record.inputFieldsForExport(recordHolder);
         record.setVisible(true);
+    }
+    
+    private void analysisForm(){
+        
+       ArrayList<String[]> records = hcMod.getmockRecordList();
+       
+       analysis.title.setText("Analysis for " + records.get(0)[0]);
+       
+        formatAnalysis(4, "height", records);
+        formatAnalysis(5, "weight", records);
+        formatAnalysis(19, "conditions", records);
+        formatAnalysis(21, "symptoms", records);
+        
+        analysis.setVisible(true);
+    }
+    
+    private void formatAnalysis(int recordNumber, String measurementTitle, ArrayList<String[]> records){
+        analysis.jTextArea1.append(records.get(0)[0] + "'s " + measurementTitle + " over time \n");
+        
+        for(String[] record : records){
+           analysis.jTextArea1.append(record[22] + " ");
+           analysis.jTextArea1.append(record[recordNumber] + " " + "\n");
+       }
+        analysis.jTextArea1.append("\n");
     }
 
 }

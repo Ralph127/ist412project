@@ -7,6 +7,7 @@ package alphacare;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import javax.swing.JOptionPane;
 /**
  *
  * @author NEW
@@ -100,7 +101,6 @@ public class MedicalRecordUI extends javax.swing.JFrame {
         jLabel28 = new javax.swing.JLabel();
         jLabel29 = new javax.swing.JLabel();
         exportButton = new javax.swing.JButton();
-        analysis = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -327,13 +327,6 @@ public class MedicalRecordUI extends javax.swing.JFrame {
             }
         });
 
-        analysis.setText("Analysis");
-        analysis.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                analysisActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -369,11 +362,9 @@ public class MedicalRecordUI extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(exportButton, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel3)
-                                .addGroup(layout.createSequentialGroup()
-                                    .addGap(499, 499, 499)
-                                    .addComponent(analysis))))
+                                .addGap(531, 531, 531)))
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
             .addComponent(jSeparator1, javax.swing.GroupLayout.Alignment.TRAILING)
             .addGroup(layout.createSequentialGroup()
@@ -508,9 +499,7 @@ public class MedicalRecordUI extends javax.swing.JFrame {
                             .addComponent(jLabel10)
                             .addComponent(exportButton))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel11)
-                            .addComponent(analysis)))
+                        .addComponent(jLabel11))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel27)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -621,7 +610,7 @@ public class MedicalRecordUI extends javax.swing.JFrame {
                 .addComponent(jLabel26)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(37, Short.MAX_VALUE))
+                .addContainerGap(41, Short.MAX_VALUE))
         );
 
         pack();
@@ -713,16 +702,13 @@ public class MedicalRecordUI extends javax.swing.JFrame {
                  fileWriter.write(this.exportData[i]);
                  fileWriter.write("\n");
              }
+             JOptionPane.showMessageDialog(null, "Data Export Successful!");
              fileWriter.flush();
              fileWriter.close();
          } catch(IOException e){
              e.printStackTrace();
          }
     }//GEN-LAST:event_exportButtonActionPerformed
-
-    private void analysisActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_analysisActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_analysisActionPerformed
     public void inputFieldsForExport(String[] input){
         this.exportData = input;
     }
@@ -765,7 +751,6 @@ public class MedicalRecordUI extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public javax.swing.JTextField address;
     public javax.swing.JTextArea allergies;
-    private javax.swing.JButton analysis;
     public javax.swing.JTextField city;
     public javax.swing.JTextField culturalPreference;
     public javax.swing.JTextArea currentConditions;

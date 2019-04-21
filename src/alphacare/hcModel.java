@@ -207,6 +207,10 @@ public class hcModel {
 
     }
     
+    public ArrayList<String[]> getmockRecordList(){
+        return patientRecords;
+    }
+    
     
     public String[] getMockRecord(int i) {
         
