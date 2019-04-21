@@ -211,7 +211,7 @@ public class hcView extends JFrame {
         
        ArrayList<String[]> records = hcMod.getmockRecordList();
        
-       
+       analysis.title.setText("Analysis for " + records.get(0)[0]);
        
         formatAnalysis(4, "height", records);
         formatAnalysis(5, "weight", records);
