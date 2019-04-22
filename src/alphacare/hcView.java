@@ -7,6 +7,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
+import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -14,13 +15,19 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.swing.ScrollPaneConstants;
+import javax.swing.UIManager;
+import javax.swing.text.DefaultCaret;
 
 
 public class hcView extends JFrame {
 
     private JPanel objectPanel;
     private JPanel recordPanel;
+    private JPanel loginPanel;
     private JPanel buttonPanel;
 
     private final hcControl hcCntrl;
@@ -61,12 +68,9 @@ public class hcView extends JFrame {
         objectPanel.add(new JLabel("Username", JLabel.CENTER));
         objectPanel.add(new JLabel("Password", JLabel.CENTER));
 
-        buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
+        loginPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
         JButton welcomeB = new JButton("Login");
-
-        //welcomeB.addActionListener(event -> patientOptions());
         
-        JButton showDialogButton = new JButton("Text Button");
         welcomeB.addActionListener(new ActionListener() {
           public void actionPerformed(ActionEvent e)
           {
@@ -79,15 +83,17 @@ public class hcView extends JFrame {
           }
         });
 
-        buttonPanel.add(welcomeB);
+        loginPanel.add(welcomeB);
 
         setContentPane(new JPanel(new BorderLayout()));
         getContentPane().add(objectPanel, BorderLayout.NORTH);
-        getContentPane().add(buttonPanel, BorderLayout.SOUTH);
+        getContentPane().add(loginPanel, BorderLayout.SOUTH);
 
     }
 
     private void patientOptions() {
+        
+        getContentPane().removeAll();
         
         setTitle("Patient Portal");
         setSize(800, 600);
@@ -133,11 +139,85 @@ public class hcView extends JFrame {
             buttonList[i].addActionListener(listener);
             recordPanel.add(buttonList[i]);
         }
-
+        
+        JButton newRecord = new JButton("Patient Care Monitor");
         buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
-        JButton patientInfo = new JButton("Display Latest Record");
-        //patientInfo.addActionListener(event -> medicalForm());
-        buttonPanel.add(patientInfo);
+        buttonPanel.add(newRecord);
+        newRecord.addActionListener(new ActionListener()
+        {
+            public void actionPerformed(ActionEvent e)
+            {
+                JFrame frame = new JFrame("Patient Alert System");
+                frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+                
+                JPanel panel = new JPanel();
+                panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
+                panel.setOpaque(true);               
+                String description = "✞Enter Patient Current Medical Condition Below";
+                JTextArea textArea = new JTextArea(description);
+                textArea.setWrapStyleWord(true);
+                textArea.setEditable(false);
+                textArea.setFont(Font.getFont(Font.SANS_SERIF));
+                JScrollPane scroller = new JScrollPane(textArea);
+                scroller.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+                scroller.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+                JPanel inputpanel = new JPanel();
+                inputpanel.setLayout(new FlowLayout());
+                JLabel HeartRate = new JLabel("HeartRate");
+                JTextField input = new JTextField(20);
+                JLabel Temperature  = new JLabel("Temperature");
+                JTextField input_2 = new JTextField(20);
+                JLabel BloodPressure = new JLabel("Blood Pressure");
+                JTextField input_3 = new JTextField(20);
+                JLabel Weight = new JLabel("Weight");
+                JTextField input_4 = new JTextField(20);
+                JLabel Height = new JLabel("Height");
+                JTextField input_5 = new JTextField(20);
+
+                JButton button = new JButton("Enter");
+                DefaultCaret caret = (DefaultCaret) textArea.getCaret();
+                caret.setUpdatePolicy(DefaultCaret.ALWAYS_UPDATE);
+                panel.add(scroller);
+                
+                inputpanel.add(HeartRate);
+                inputpanel.add(input);
+                inputpanel.add(Temperature);
+                inputpanel.add(input_2);
+                inputpanel.add(BloodPressure);
+                inputpanel.add(input_3);
+                inputpanel.add(Weight);
+                inputpanel.add(input_4);
+                inputpanel.add(Height);
+                inputpanel.add(input_5);
+                inputpanel.add(button);
+                panel.add(inputpanel);
+                frame.getContentPane().add(BorderLayout.CENTER, panel);
+                frame.pack();
+                frame.setLocationByPlatform(true);
+                frame.setVisible(true);
+                frame.setResizable(false);
+                input.requestFocus();
+                button.addActionListener(new ActionListener(){
+                    public void actionPerformed(ActionEvent q)
+                    {
+                       JFrame frame = new JFrame("Alert");
+                       frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+                       frame.setLayout(new BorderLayout());
+                       frame.setSize(400,100);
+                       JPanel panel = new JPanel();
+                       panel.setOpaque(false);
+                      
+                       frame.setVisible(true);
+                       frame.getContentPane().add(BorderLayout.CENTER, panel);
+         
+                       JLabel warning  = new JLabel("Patient needs to be seen by a doctor!");    
+                       
+                           
+                       panel.add(warning);
+                    }
+                });
+            }
+        });
         
         JButton analyzeButton = new JButton("Analyze Data");
         analyzeButton.addActionListener(analyzeListener);
@@ -151,6 +231,7 @@ public class hcView extends JFrame {
         getContentPane().add(objectPanel, BorderLayout.NORTH);
         getContentPane().add(recordPanel, BorderLayout.CENTER);
         getContentPane().add(buttonPanel, BorderLayout.SOUTH);
+        getContentPane().revalidate();
     }
     
     private void medicalForm(int i){
