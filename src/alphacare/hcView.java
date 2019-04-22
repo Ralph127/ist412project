@@ -19,7 +19,6 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.ScrollPaneConstants;
-import javax.swing.UIManager;
 import javax.swing.text.DefaultCaret;
 
 
@@ -133,8 +132,6 @@ public class hcView extends JFrame {
         recordPanel = new JPanel(new GridLayout(hcMod.patientRecords.size() + 1, 1));
         JButton[] buttonList = new JButton[hcMod.patientRecords.size()];
         for (int i = 0; i < hcMod.patientRecords.size(); i++){
-            //JButton recordButton = new JButton("Medical record from " + (String)Array.get(hcMod.MockRecord(i), 3));
-            //recordButton.addActionListener(listener);
             buttonList[i] = new JButton("Medical record from " + (String)Array.get(hcMod.getMockRecord(i), 22));
             buttonList[i].addActionListener(listener);
             recordPanel.add(buttonList[i]);

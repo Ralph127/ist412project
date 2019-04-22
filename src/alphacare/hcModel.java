@@ -1,8 +1,6 @@
 package alphacare;
 
-
 import java.util.ArrayList;
-
 
 /**
  *
